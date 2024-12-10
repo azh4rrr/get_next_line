@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void convolution(int signal1[], int len1, int signal2[], int len2, float result[]) {
+    int n, k;
+    for (n = 0; n < len1 + len2 - 1; n++) {
+        result[n] = 0;
+        for (k = 0; k < len2; k++) {
+            if (n - k >= 0 && n - k < len1) {
+                result[n] += signal1[n - k] * signal2[k];
+            }
+        }
+    }
+}
+
+int main() {
+    int signal1[] = {1, 2, 3};
+    int signal2[] = {0, 1, 0.5};
+    int len1 = 3, len2 = 3;
+    float result[len1 + len2 - 1];
+
+    convolution(signal1, len1, signal2, len2, result);
+
+    printf("Result of the convolution:\n");
+    for (int i = 0; i < len1 + len2 - 1; i++) {
+        printf("%.2f ", result[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
